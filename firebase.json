@@ -1,0 +1,40 @@
+
+{
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "flutter": {
+    "platforms": {
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "quizora-54b43",
+          "configurations": {
+            "android": "1:173018224276:android:b0e63b4233995a0a2dc681",
+            "web": "1:173018224276:web:42b3d7fdf8bde3e92dc681"
+          }
+        }
+      },
+      "android": {
+        "default": {
+          "projectId": "quizora-54b43",
+          "appId": "1:173018224276:android:b0e63b4233995a0a2dc681",
+          "fileOutput": "android/app/google-services.json"
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "disallowLegacyRuntimeConfig": true,
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ]
+    }
+  ]
+}

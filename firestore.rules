@@ -1,0 +1,109 @@
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isTeacher() {
+      return request.auth != null
+        && exists(
+          /databases/$(database)/documents/users/$(request.auth.uid)
+        )
+        && get(
+          /databases/$(database)/documents/users/$(request.auth.uid)
+        ).data.role == 'Teacher';
+    }
+
+    match /users/{userId} {
+      allow create: if request.auth != null
+                    && request.auth.uid == userId;
+
+      allow read: if request.auth != null
+                  && request.auth.uid == userId;
+
+      allow update: if request.auth != null
+                    && request.auth.uid == userId
+                    && request.resource.data.role == resource.data.role;
+
+      allow delete: if false;
+    }
+
+   match /classroomQuizzes/{roomCode} {
+
+  // Teachers can create classroom quizzes.
+  allow create: if isTeacher()
+    && request.resource.data.teacherId == request.auth.uid
+    && request.resource.data.roomCode == roomCode
+    && request.resource.data.quizMode in ['live', 'selfPaced']
+    && request.resource.data.questions is list
+    && request.resource.data.questions.size() == 10;
+
+  // Logged-in students and teachers can read public questions.
+  allow read: if request.auth != null;
+
+  // Only the teacher who created the quiz can update it.
+  allow update: if isTeacher()
+    && resource.data.teacherId == request.auth.uid
+    && request.resource.data.teacherId == resource.data.teacherId
+    && request.resource.data.roomCode == roomCode;
+
+  allow delete: if false;
+}
+
+match /classroomQuizAnswers/{roomCode} {
+  allow create: if isTeacher()
+    && request.resource.data.teacherId == request.auth.uid;
+
+  allow read: if request.auth != null
+    && (
+      (
+        isTeacher()
+        && resource.data.teacherId == request.auth.uid
+      )
+      ||
+      (
+        exists(
+          /databases/$(database)/documents/classroomSubmissions/$(roomCode + '_' + request.auth.uid)
+        )
+        && get(
+          /databases/$(database)/documents/classroomSubmissions/$(roomCode + '_' + request.auth.uid)
+        ).data.studentId == request.auth.uid
+      )
+    );
+
+  allow update, delete: if false;
+}
+
+match /classroomSubmissions/{submissionId} {
+
+  allow create: if request.auth != null
+    && request.resource.data.studentId == request.auth.uid
+    && submissionId == request.resource.data.roomCode + '_' + request.auth.uid
+    && request.resource.data.teacherId ==
+      get(/databases/$(database)/documents/classroomQuizzes/$(request.resource.data.roomCode)).data.teacherId
+    && request.resource.data.answers is list
+    && request.resource.data.answers.size() == 10
+    && request.resource.data.keys().hasOnly([
+      'roomCode',
+      'teacherId',
+      'studentId',
+      'answers',
+      'submittedAt'
+    ]);
+
+  allow read: if request.auth != null
+    && (
+      resource.data.studentId == request.auth.uid
+      || (
+        isTeacher()
+        && resource.data.teacherId == request.auth.uid
+      )
+    );
+
+  allow update, delete: if false;
+}
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "173018224276",
+    "project_id": "quizora-54b43",
+    "storage_bucket": "quizora-54b43.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:173018224276:android:b0e63b4233995a0a2dc681",
+        "android_client_info": {
+          "package_name": "com.example.quizora"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAjDm2PSm5i1FGFuBfrSdtCQezWX5Kvcg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
