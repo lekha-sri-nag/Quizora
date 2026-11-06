@@ -2,9 +2,16 @@
 
 Quizora is a modern interactive quiz application built with **Flutter and Firebase**. It provides an engaging learning experience through category-based quizzes, custom quizzes, difficulty levels, and classroom-based assessments.
 
+## 🚀 Live Demo
+
+**Try Quizora here:** https://quizora-54b43.web.app
+
+The application is deployed using Firebase Hosting.
+
 ## Features
 
 ### Student Features
+
 - Register and log in as a student.
 - Explore quizzes across different categories.
 - Attempt quizzes with Easy, Medium, and Hard difficulty levels.
@@ -15,6 +22,7 @@ Quizora is a modern interactive quiz application built with **Flutter and Fireba
 - View quiz history.
 
 ### Teacher Features
+
 - Register and log in as a teacher.
 - Access the Teacher Dashboard.
 - Create classroom quizzes.
@@ -23,9 +31,11 @@ Quizora is a modern interactive quiz application built with **Flutter and Fireba
 - View student submissions and scores.
 
 ### Technology Stack
+
 - **Frontend:** Flutter, Dart
 - **Authentication:** Firebase Authentication
 - **Database:** Cloud Firestore
+- **Hosting:** Firebase Hosting
 - **Local Storage:** Shared Preferences
 - **Testing:** Flutter Test
 
@@ -51,6 +61,7 @@ Quizora/
 ## Getting Started
 
 ### Prerequisites
+
 - Flutter SDK
 - Dart SDK
 - Visual Studio Code or Android Studio
@@ -108,7 +119,8 @@ flutter analyze
 ```
 
 ## Future Improvements
-- Android APK distribution.
+
+- Google Play Store distribution.
 - Enhanced classroom management.
 - Additional quiz categories and question banks.
 - Improved analytics and performance tracking.
@@ -119,8 +131,9 @@ flutter analyze
 
 B.Tech — Computer Science and Engineering
 
-GitHub: [lekha-sri-nag](https://github.com/lekha-sri-nag)
+GitHub: https://github.com/lekha-sri-nag
 
 ---
 
 *Quizora — Learn • Play • Grow*
+
